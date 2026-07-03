@@ -1,4 +1,5 @@
-package ar.edu.utn.edu.lucas_cristin.sistema_climalert;
+package ar.edu.utn.edu.lucas_cristin.sistema_climalert.models;
 
 public class EntidadCorrespondiente {
+
 }

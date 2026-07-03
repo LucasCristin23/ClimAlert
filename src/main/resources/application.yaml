@@ -1,3 +1,7 @@
 spring:
   application:
     name: sistema-climalert
+
+weather-api:
+  base-url: https://api.weatherapi.com/v1
+  api-key: ${WEATHER_API_KEY:}
