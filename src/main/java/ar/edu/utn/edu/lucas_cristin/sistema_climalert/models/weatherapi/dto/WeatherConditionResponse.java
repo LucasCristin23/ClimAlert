@@ -7,5 +7,4 @@ public record WeatherConditionResponse(
         String text,
         String icon,
         Integer code
-) {
-}
+){}

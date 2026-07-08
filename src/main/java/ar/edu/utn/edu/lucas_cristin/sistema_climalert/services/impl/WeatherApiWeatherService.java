@@ -1,11 +1,15 @@
 package ar.edu.utn.edu.lucas_cristin.sistema_climalert.services.impl;
 
 import ar.edu.utn.edu.lucas_cristin.sistema_climalert.config.WeatherApiProperties;
+import ar.edu.utn.edu.lucas_cristin.sistema_climalert.models.Medicion;
 import ar.edu.utn.edu.lucas_cristin.sistema_climalert.services.WeatherService;
 import ar.edu.utn.edu.lucas_cristin.sistema_climalert.models.weatherapi.dto.WeatherCurrentResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClient;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 public class WeatherApiWeatherService implements WeatherService {
@@ -19,7 +23,7 @@ public class WeatherApiWeatherService implements WeatherService {
     }
 
     @Override
-    public WeatherCurrentResponse obtenerClimaActual(String ubicacion) {
+    public WeatherCurrentResponse obtenerMedicion(String ubicacion) {
         if (!StringUtils.hasText(ubicacion)) {
             throw new IllegalArgumentException("La ubicacion es obligatoria");
         }
@@ -37,5 +41,20 @@ public class WeatherApiWeatherService implements WeatherService {
                         .build())
                 .retrieve()
                 .body(WeatherCurrentResponse.class);
+    }
+
+    public Medicion obtenerClimaActual (String ubicacion){
+
+        WeatherCurrentResponse medicionDTO = obtenerMedicion(ubicacion);
+        String horaSinParsear = medicionDTO.location().name();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime hora = LocalDateTime.parse(horaSinParsear, formatter);
+
+        return  new Medicion(
+                medicionDTO.location().name() + " - " + medicionDTO.location().region() + " - " + medicionDTO.location().country(),
+                hora,
+                medicionDTO.current().temperatureCelsius(),
+                medicionDTO.current().humidity()
+        );
     }
 }

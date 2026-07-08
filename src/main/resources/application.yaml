@@ -4,4 +4,5 @@ spring:
 
 weather-api:
   base-url: https://api.weatherapi.com/v1
-  api-key: ${WEATHER_API_KEY:}
+  api-key: ${WEATHER_API_KEY:"da051d843ac1451497003743260807"}
+  city: "Buenos Aires"

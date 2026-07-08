@@ -9,4 +9,5 @@ public class WeatherApiProperties {
 
     private String baseUrl;
     private String apiKey;
+    private String city;
 }

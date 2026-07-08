@@ -7,5 +7,6 @@ public interface MedicionService{
 
     void verificarAlerta(Medicion medicion);
 
-    void guardarMedicion(Medicion medicion);
+
+    void consultarMedicion();
 }
